@@ -77,6 +77,44 @@ In this case, the child class inherits all attributes, relationships, and functi
 	 
 In this example the class *smartgrid.Meter* inherits all attributes, relationships, and functions of *smartgrid.Entity*. 	  
 
+**Indexed attributes**: the structure of KMF leads to a graph of objects. 
+In order to read this graph of data, man have to identify some entry-points and naviguates other objects through relationships traversal operations.
+These entry-points are in fact objects that are indexed according to their attributes values.
+These indexes are costly and therefore are not done by default, therefore in KMF, objects that can act as entry-points should be identify first in the domain.
+To do so, we offer in the DSL definition a special attribute annotation named `index` that allow to define that this attribute will be part of the *key* to identify one object of this specific metaclass.
+The following example highlight this usage.
+
+```java
+    class smartgrid.Meter {
+    	att name: String with index
+    }
+```
+
+In this code snippet we define that any smartMeter object can be identify thourgh it's name.
+We also define that no duplicate smartMeter object can share the same name (the last defined one will silently override the previous one).
+Index are automatically filled while these special attributes are manipulated.
+
+```java
+meter0 = model.createSmartMeter(0,0);
+meter0.setName("Meter0");
+```
+
+Now this object are reacheable using the name and a TIME and UNIVERSE number. As the following:
+
+```
+model.findByName("SmartMeter",0,0,"Meter0");
+```
+
+Finally, indexes are relative to time and universe, as any element in KMF. Therefore if an object is modified in future, the index will be altered only in future. Therefore, the refactoring does not apply for past elements.
+
+```
+meter0.jump(10,{ meter10 ->
+	meter10.setName("SmartMeter0");
+}
+```
+
+Now the find method will retrieve the object with the name SmartMeter0 *AFTER or EQUALS* time 10 and with the name Meter0 for time *LOWER* than 10.
+
 **Functions**: define, like in object-oriented programming, the possible behaviour of classes. 
 Functions are defined using the keyword *func* followed by a *name*, a list of *parameters*, and *return type*. 
 Parameters and return types can be primitive types (*String, Long, Bool, Int, Double*), *enumeration values*, *classes*, as well as arrays of all of these types.
