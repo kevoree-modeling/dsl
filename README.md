@@ -102,7 +102,7 @@ meter0.setName("Meter0");
 Now this object are reacheable using the name and a TIME and UNIVERSE number. As the following:
 
 ```
-model.findByName("SmartMeter",0,0,"Meter0");
+model.findByName("SmartMeter",0,0,"name=Meter0");
 ```
 
 Finally, indexes are relative to time and universe, as any element in KMF. Therefore if an object is modified in future, the index will be altered only in future. Therefore, the refactoring does not apply for past elements.
@@ -114,6 +114,21 @@ meter0.jump(10,{ meter10 ->
 ```
 
 Now the find method will retrieve the object with the name SmartMeter0 *AFTER or EQUALS* time 10 and with the name Meter0 for time *LOWER* than 10.
+
+Finally it feasible to use several attribute as the key. Such as:
+
+```java
+    class smartgrid.Meter {
+    	att prefix: String with index
+    	att name: String with index
+    }
+```
+
+Then, to retreive the same object the query will look like:
+
+```
+model.findByName("SmartMeter",0,0,"prefix=ORG,name=Meter0");
+```
 
 **Functions**: define, like in object-oriented programming, the possible behaviour of classes. 
 Functions are defined using the keyword *func* followed by a *name*, a list of *parameters*, and *return type*. 
