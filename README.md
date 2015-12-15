@@ -130,6 +130,11 @@ Then, to retreive the same object the query will look like:
 model.findByName("SmartMeter",0,0,"prefix=ORG,name=Meter0");
 ```
 
+**WARNING:**
+* An object without index or without any link (directly or not) with an indexed object is **NOT reachable**. Thus, it is not possible to recover it. (Unless you keep in memory its ID)
+* KMF uses an Hash Indexes. So, only the egual operation can be used in a query.
+* A class with multiple indexed attribute should be understood as a "multi-column" index. In the previous example, the hash is computed from the concatenation of the `prefix` and the `name` of `smartgrid.Meter`. Thus, to retrieve the object the exact `prefix` AND exact `name` are required.
+
 **Functions**: define, like in object-oriented programming, the possible behaviour of classes. 
 Functions are defined using the keyword *func* followed by a *name*, a list of *parameters*, and *return type*. 
 Parameters and return types can be primitive types (*String, Long, Bool, Int, Double*), *enumeration values*, *classes*, as well as arrays of all of these types.
