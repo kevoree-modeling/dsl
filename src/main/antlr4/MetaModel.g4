@@ -20,7 +20,7 @@ semanticWith : 'with' IDENT (STRING|NUMBER);
 semanticUsing : 'using' STRING;
 semanticFrom : 'from' STRING;
 
-annotation : ('learned' | 'derived' | 'globally');
+annotation : ('learned' | 'derived' | 'global');
 
 attributeType : 'String' | 'Double' | 'Long' | 'Integer' | 'Boolean' | TYPE_NAME;
 attributeDeclaration : annotation* 'att' IDENT ':' attributeType semanticDeclr? ;

@@ -20,4 +20,16 @@ public interface KProperty {
 
     void addParameter(String param, String value);
 
+    boolean derived();
+
+    void setDerived();
+
+    boolean learned();
+
+    void setLearned();
+
+    boolean global();
+
+    void setGlobal();
+
 }

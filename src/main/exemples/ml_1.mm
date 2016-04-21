@@ -17,7 +17,7 @@ class smartgrid.SmartMeter {
         using "GaussianClassifier"
     }
 
-    globally learned att polynomialAtt : Double {
+    global learned att polynomialAtt : Double {
         from "TITI"
         from "GIGI"
         with precision 0.1

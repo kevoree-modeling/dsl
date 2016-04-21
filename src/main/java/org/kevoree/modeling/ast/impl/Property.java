@@ -20,6 +20,12 @@ public abstract class Property implements KProperty {
 
     private String alg;
 
+    private boolean derived = false;
+
+    private boolean learned = false;
+
+    private boolean global = false;
+
     public Property(String name, String type) {
         this.name = name;
         this.type = type;
@@ -65,5 +71,35 @@ public abstract class Property implements KProperty {
     @Override
     public void addParameter(String param, String value) {
         paramaters.put(param, value);
+    }
+
+    @Override
+    public boolean derived() {
+        return derived;
+    }
+
+    @Override
+    public void setDerived() {
+        derived = true;
+    }
+
+    @Override
+    public boolean learned() {
+        return learned;
+    }
+
+    @Override
+    public void setLearned() {
+        learned = true;
+    }
+
+    @Override
+    public boolean global() {
+        return global;
+    }
+
+    @Override
+    public void setGlobal() {
+        global = true;
     }
 }

@@ -10,6 +10,7 @@ import org.kevoree.modeling.ast.impl.Class;
 import org.kevoree.modeling.ast.impl.Enum;
 
 import java.io.File;
+import java.util.List;
 
 public class ModelBuilder {
 
@@ -73,6 +74,7 @@ public class ModelBuilder {
                     value = attType.getText();
                 }
                 final KAttribute attribute = new Attribute(name, value);
+                processAnnotations(attribute, attDecl.annotation());
                 processSemanticBloc(attribute, attDecl.semanticDeclr());
                 newClass.addProperty(attribute);
             }
@@ -85,11 +87,28 @@ public class ModelBuilder {
                     type = relDecl.TYPE_NAME().toString();
                 }
                 final KRelation relation = new Relation(name, type);
+                processAnnotations(relation, relDecl.annotation());
                 processSemanticBloc(relation, relDecl.semanticDeclr());
                 newClass.addProperty(relation);
             }
         }
         return model;
+    }
+
+    private static void processAnnotations(KProperty property, List<org.kevoree.modeling.ast.MetaModelParser.AnnotationContext> annotations) {
+        if (annotations != null) {
+            for (org.kevoree.modeling.ast.MetaModelParser.AnnotationContext annotationContext : annotations) {
+                if (annotationContext.getText().equals("learned")) {
+                    property.setLearned();
+                }
+                if (annotationContext.getText().equals("derived")) {
+                    property.setDerived();
+                }
+                if (annotationContext.getText().equals("global")) {
+                    property.setGlobal();
+                }
+            }
+        }
     }
 
     private static void processSemanticBloc(KProperty property, org.kevoree.modeling.ast.MetaModelParser.SemanticDeclrContext semanticDeclrContext) {
@@ -143,6 +162,7 @@ public class ModelBuilder {
         return previous;
     }
 
+    /*
     private static boolean isPrimitiveTYpe(String nn) {
         if (nn.equals("Bool")) {
             return true;
@@ -179,6 +199,6 @@ public class ModelBuilder {
             return -5;
         }
         return 0;
-    }
+    }*/
 
 }
