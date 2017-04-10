@@ -78,7 +78,7 @@ In this case, the child class inherits all attributes, relationships, and functi
 In this example the class *smartgrid.Meter* inherits all attributes, relationships, and functions of *smartgrid.Entity*. 	  
 
 **Indexed attributes**: the structure of KMF leads to a graph of objects. 
-In order to read this graph of data, man have to identify some entry-points and naviguates other objects through relationships traversal operations.
+In order to read this graph of data, man have to identify some entry-points and navigate other objects through relationships traversal operations.
 These entry-points are in fact objects that are indexed according to their attributes values.
 These indexes are costly and therefore are not done by default, therefore in KMF, objects that can act as entry-points should be identify first in the domain.
 To do so, we offer in the DSL definition a special attribute annotation named `index` that allow to define that this attribute will be part of the *key* to identify one object of this specific metaclass.
@@ -90,7 +90,7 @@ The following example highlight this usage.
     }
 ```
 
-In this code snippet we define that any smartMeter object can be identify thourgh it's name.
+In this code snippet we define that any smartMeter object can be identify through it's name.
 We also define that no duplicate smartMeter object can share the same name (the last defined one will silently override the previous one).
 Index are automatically filled while these special attributes are manipulated.
 
@@ -99,7 +99,7 @@ meter0 = model.createSmartMeter(0,0);
 meter0.setName("Meter0");
 ```
 
-Now this object are reacheable using the name and a TIME and UNIVERSE number. As the following:
+Now this object is reachable using the name and a TIME and UNIVERSE number. As the following:
 
 ```
 model.findByName("SmartMeter",0,0,"name=Meter0");
@@ -124,7 +124,7 @@ Finally it feasible to use several attribute as the key. Such as:
     }
 ```
 
-Then, to retreive the same object the query will look like:
+Then, to retrieve the same object the query will look like:
 
 ```
 model.findByName("SmartMeter",0,0,"prefix=ORG,name=Meter0");
@@ -132,7 +132,7 @@ model.findByName("SmartMeter",0,0,"prefix=ORG,name=Meter0");
 
 **WARNING:**
 * An object without index or without any link (directly or not) with an indexed object is **NOT reachable**. Thus, it is not possible to recover it. (Unless you keep in memory its ID)
-* KMF uses an Hash Indexes. So, only the egual operation can be used in a query.
+* KMF uses an Hash Indexes. So, only the equal operation can be used in a query.
 * A class with multiple indexed attribute should be understood as a "multi-column" index. In the previous example, the hash is computed from the concatenation of the `prefix` and the `name` of `smartgrid.Meter`. Thus, to retrieve the object the exact `prefix` AND exact `name` are required.
 
 **Functions**: define, like in object-oriented programming, the possible behaviour of classes. 
