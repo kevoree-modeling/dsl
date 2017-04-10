@@ -1,4 +1,4 @@
-#Meta Model DSL
+# Meta Model DSL
 
 KMF comes with a simple, yet powerful textual domain-specific language for defining meta models.
 The language allows to define concepts like classes, enums, attributes, relationships between classes, functions, and machine learning strategies.
